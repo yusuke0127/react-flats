@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FlatList from './flat_list';
-import Flats from '../../data/flats.js';
+import flats from '../../data/flats.js';
 import MyMap from './my_map';
 
 
@@ -9,27 +9,22 @@ class App extends Component {
     super(props);
 
     this.state = {
-      flats: [Flats],
-      center: {
-        lat: 59.95,
-        lng: 30.33
-      },
-      zoom: 12
+      flats,
+      selectedFlat: flats[0]
     };
   }
 
-  selectFlat = (flat) => {
+  selectFlat = (index) => {
     this.setState({
-      lat: flat.lat,
-      lng: flat.lng
+      selectedFlat: flats[index]
     });
   }
 
   render() {
     return (
       <div>
-        <FlatList flats={this.state.flats} selectFlat={this.selectFlat} />
-        <MyMap lat={this.state.lat} lng={this.state.lng} center={this.state.center} />
+        <FlatList flats={this.state.flats} selectFlat={this.selectFlat} selectedFlat={this.state.selectedFlat} />
+        <MyMap lat={this.state.selectedFlat.lat} lng={this.state.selectedFlat.lng} />
       </div>
     );
   }
